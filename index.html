@@ -32,6 +32,73 @@
             --radius: 16px;
         }
 
+        /* Dark theme */
+        [data-theme="dark"] {
+            --bg: #111118;
+            --bg-alt: #0A0A0F;
+            --text: #E8E4DF;
+            --text-secondary: #9CA3AF;
+            --text-light: #6B7280;
+            --border: #2A2A35;
+            --blue-light: rgba(37, 99, 235, 0.12);
+            --green-light: rgba(5, 150, 105, 0.12);
+            --red-light: rgba(220, 38, 38, 0.12);
+            --amber-light: rgba(217, 119, 6, 0.12);
+            --purple-light: rgba(124, 58, 237, 0.12);
+            --cyan-light: rgba(8, 145, 178, 0.12);
+            --indigo-light: rgba(79, 70, 229, 0.12);
+        }
+
+        [data-theme="dark"] .slide-hero {
+            background: linear-gradient(180deg, #151525 0%, var(--bg) 100%);
+        }
+
+        [data-theme="dark"] .slide-end {
+            background: linear-gradient(180deg, var(--bg) 0%, #151525 100%);
+        }
+
+        [data-theme="dark"] .bg-warm { background: linear-gradient(180deg, rgba(217, 119, 6, 0.06) 0%, var(--bg) 40%); }
+        [data-theme="dark"] .bg-cool { background: linear-gradient(180deg, rgba(37, 99, 235, 0.06) 0%, var(--bg) 40%); }
+        [data-theme="dark"] .bg-mint { background: linear-gradient(180deg, rgba(5, 150, 105, 0.06) 0%, var(--bg) 40%); }
+        [data-theme="dark"] .bg-rose { background: linear-gradient(180deg, rgba(220, 38, 38, 0.06) 0%, var(--bg) 40%); }
+        [data-theme="dark"] .bg-violet { background: linear-gradient(180deg, rgba(124, 58, 237, 0.06) 0%, var(--bg) 40%); }
+        [data-theme="dark"] .bg-sky { background: linear-gradient(180deg, rgba(8, 145, 178, 0.06) 0%, var(--bg) 40%); }
+        [data-theme="dark"] .bg-indigo { background: linear-gradient(180deg, rgba(79, 70, 229, 0.06) 0%, var(--bg) 40%); }
+
+        [data-theme="dark"] .fail {
+            background: rgba(220, 38, 38, 0.08);
+            border-color: rgba(220, 38, 38, 0.15);
+        }
+
+        [data-theme="dark"] .fail p { color: #FCA5A5; }
+        [data-theme="dark"] .fail p strong { color: #FECACA; }
+
+        [data-theme="dark"] .growth-highlight {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        [data-theme="dark"] .qr-frame {
+            background: #FFFFFF;
+        }
+
+        [data-theme="dark"] .nav {
+            background: rgba(17, 17, 24, 0.85);
+            border-color: var(--border);
+        }
+
+        [data-theme="dark"] .nav-btn:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        [data-theme="dark"] .nav-dot {
+            background: #3A3A45;
+        }
+
+        [data-theme="dark"] .progress {
+            background: #6D8FFF;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -621,6 +688,39 @@
             z-index: 200;
         }
 
+        /* Theme toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 24px;
+            right: 32px;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 200;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .theme-toggle:hover {
+            color: var(--text);
+            border-color: var(--text-light);
+            transform: scale(1.05);
+        }
+
+        .theme-toggle .icon-sun { display: none; }
+        .theme-toggle .icon-moon { display: block; }
+
+        [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
         @media (max-width: 1024px) {
             .slide { padding: 60px 60px; }
             .hero-title { font-size: 64px; }
@@ -642,6 +742,11 @@
 <body>
 
 <div class="progress" id="progress"></div>
+
+<button class="theme-toggle" onclick="toggleTheme()" title="Тёмная / Светлая тема">
+    <span class="icon-moon">&#x1F319;</span>
+    <span class="icon-sun">&#x2600;&#xFE0F;</span>
+</button>
 
 <!-- 1. TITLE -->
 <div class="slide slide-hero active">
@@ -948,6 +1053,20 @@
     });
 
     goTo(0);
+
+    // Theme toggle
+    function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+
+    // Restore saved theme
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
 </script>
 
 </body>
