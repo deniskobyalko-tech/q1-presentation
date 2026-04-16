@@ -3,664 +3,1104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q1 Report</title>
+    <title>Q1 Report — Marketing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=Unbounded:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #08080C;
+            --surface: #111118;
+            --accent: #FF3D00;
+            --mint: #00E5A0;
+            --gold: #FFB800;
+            --blue: #4D7CFF;
+            --text: #E8E4DF;
+            --muted: #6B6770;
+            --dim: #2A2830;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0a0a;
-            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             overflow: hidden;
             height: 100vh;
             width: 100vw;
+            cursor: none;
         }
 
+        /* Custom cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, border-color 0.3s;
+            transform: translate(-50%, -50%);
+        }
+        .cursor.hover {
+            transform: translate(-50%, -50%) scale(1.8);
+            border-color: var(--mint);
+        }
+        .cursor-dot {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: background 0.3s;
+        }
+
+        /* Grain overlay */
+        .grain {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Slides */
         .slide {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            inset: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 60px 100px;
+            padding: 80px 120px;
             opacity: 0;
-            transform: translateX(60px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
             pointer-events: none;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
         }
 
         .slide.active {
             opacity: 1;
-            transform: translateX(0);
             pointer-events: auto;
         }
 
-        .slide.prev {
-            transform: translateX(-60px);
+        .slide.active .anim {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Slide 1 — Title */
+        .anim {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; }
+        .d4 { transition-delay: 0.4s; }
+        .d5 { transition-delay: 0.5s; }
+        .d6 { transition-delay: 0.6s; }
+        .d7 { transition-delay: 0.7s; }
+        .d8 { transition-delay: 0.8s; }
+
+        /* Decorative slide number */
+        .slide-num {
+            position: absolute;
+            top: -40px;
+            right: -20px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 320px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.018);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Decorative elements */
+        .deco-line {
+            position: absolute;
+            background: var(--accent);
+            opacity: 0.12;
+        }
+        .deco-line-h {
+            height: 1px;
+            width: 200px;
+        }
+        .deco-line-v {
+            width: 1px;
+            height: 200px;
+        }
+        .deco-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+
+        /* ============ TITLE SLIDE ============ */
         .slide-title {
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
             align-items: center;
             text-align: center;
+            background: var(--bg);
         }
 
         .slide-title::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 60%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 61, 0, 0.08) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             pointer-events: none;
         }
 
-        .slide-title h1 {
-            font-size: 72px;
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 229, 160, 0.05) 0%, transparent 70%);
+            top: 30%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .title-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 32px;
+        }
+
+        .title-main {
+            font-family: 'Syne', sans-serif;
+            font-size: 120px;
             font-weight: 800;
-            letter-spacing: -2px;
-            background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+            letter-spacing: -6px;
+            line-height: 0.9;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .title-main span {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--text) 0%, var(--muted) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-            position: relative;
         }
 
-        .slide-title .subtitle {
-            font-size: 22px;
+        .title-q {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent) 0%, #FF7A45 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+
+        .title-sub {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            position: relative;
+            color: var(--muted);
+            letter-spacing: 1px;
         }
 
-        /* Slide backgrounds */
-        .slide-problems {
-            background: linear-gradient(135deg, #1a0a0a 0%, #2d1215 50%, #1a0a0a 100%);
+        .title-line {
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            margin: 28px auto;
+            opacity: 0.6;
         }
 
-        .slide-goals {
-            background: linear-gradient(135deg, #0a1a1a 0%, #0f2d2d 50%, #0a1a1a 100%);
-        }
-
-        .slide-team {
-            background: linear-gradient(135deg, #0f0a1a 0%, #1a1240 50%, #0f0a1a 100%);
-        }
-
-        .slide-strategy {
-            background: linear-gradient(135deg, #1a1a0a 0%, #2d2d0f 50%, #1a1a0a 100%);
-        }
-
-        .slide-processes {
-            background: linear-gradient(135deg, #0a0f1a 0%, #0f1a2d 50%, #0a0f1a 100%);
-        }
-
-        .slide-activities {
-            background: linear-gradient(135deg, #0a1a0f 0%, #0f2d1a 50%, #0a1a0f 100%);
-        }
-
-        .slide-fails {
-            background: linear-gradient(135deg, #1a0f0a 0%, #2d1a0f 50%, #1a0f0a 100%);
-        }
-
-        .slide-end {
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Common elements */
-        .tag {
-            display: inline-block;
+        /* ============ CONTENT SLIDES ============ */
+        .section-tag {
+            font-family: 'Outfit', sans-serif;
             font-size: 11px;
             font-weight: 600;
-            letter-spacing: 3px;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            padding: 6px 16px;
-            border-radius: 100px;
-            margin-bottom: 28px;
-        }
-
-        .tag-red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
-        .tag-green { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
-        .tag-blue { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-        .tag-yellow { background: rgba(234, 179, 8, 0.15); color: #facc15; }
-        .tag-cyan { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
-        .tag-emerald { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-        .tag-orange { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
-        .tag-purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
-
-        h2 {
-            font-size: 48px;
-            font-weight: 700;
-            letter-spacing: -1.5px;
-            line-height: 1.15;
-            margin-bottom: 40px;
-        }
-
-        .items {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            max-width: 900px;
-        }
-
-        .item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            font-size: 20px;
-            font-weight: 400;
-            line-height: 1.5;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .item .icon {
-            flex-shrink: 0;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            margin-top: 2px;
-        }
-
-        .icon-red { background: rgba(239, 68, 68, 0.2); }
-        .icon-green { background: rgba(34, 197, 94, 0.2); }
-        .icon-blue { background: rgba(99, 102, 241, 0.2); }
-        .icon-yellow { background: rgba(234, 179, 8, 0.2); }
-        .icon-cyan { background: rgba(6, 182, 212, 0.2); }
-        .icon-emerald { background: rgba(16, 185, 129, 0.2); }
-        .icon-orange { background: rgba(249, 115, 22, 0.2); }
-
-        .item .text b {
-            color: #fff;
-            font-weight: 600;
-        }
-
-        /* Stats grid */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 12px;
-            max-width: 900px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 24px;
-        }
-
-        .stat-card .number {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .stat-card .label {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 400;
-        }
-
-        .number-green { color: #4ade80; }
-        .number-blue { color: #818cf8; }
-        .number-yellow { color: #facc15; }
-        .number-cyan { color: #22d3ee; }
-        .number-orange { color: #fb923c; }
-
-        /* Team cards */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 12px;
-            max-width: 900px;
-        }
-
-        .team-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 24px;
-        }
-
-        .team-card .status {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 100px;
-            margin-bottom: 12px;
-        }
-
-        .status-opt { background: rgba(234, 179, 8, 0.15); color: #facc15; }
-        .status-good { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
-        .status-bad { background: rgba(239, 68, 68, 0.15); color: #f87171; }
-
-        .team-card .desc {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.5;
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            bottom: 32px;
-            right: 40px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            z-index: 100;
         }
 
-        .nav-btn {
-            width: 44px;
-            height: 44px;
+        .section-tag::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+        }
+
+        .tag-accent { color: var(--accent); }
+        .tag-accent::before { background: var(--accent); }
+
+        .tag-mint { color: var(--mint); }
+        .tag-mint::before { background: var(--mint); }
+
+        .tag-gold { color: var(--gold); }
+        .tag-gold::before { background: var(--gold); }
+
+        .tag-blue { color: var(--blue); }
+        .tag-blue::before { background: var(--blue); }
+
+        h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -2.5px;
+            line-height: 1.1;
+            margin-bottom: 48px;
+            max-width: 700px;
+        }
+
+        .highlight {
+            position: relative;
+            display: inline;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 2px;
+            opacity: 0.5;
+        }
+
+        .hl-accent::after { background: var(--accent); }
+        .hl-mint::after { background: var(--mint); }
+        .hl-gold::after { background: var(--gold); }
+        .hl-blue::after { background: var(--blue); }
+
+        /* List items */
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 780px;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px 24px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .list-item:hover {
+            border-color: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .list-item .num {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .num-accent { background: rgba(255, 61, 0, 0.12); color: var(--accent); }
+        .num-mint { background: rgba(0, 229, 160, 0.12); color: var(--mint); }
+        .num-gold { background: rgba(255, 184, 0, 0.12); color: var(--gold); }
+        .num-blue { background: rgba(77, 124, 255, 0.12); color: var(--blue); }
+
+        .list-item .content {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: rgba(232, 228, 223, 0.8);
+        }
+
+        .list-item .content strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ============ TEAM CARDS ============ */
+        .team-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .team-main-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            font-size: 18px;
+            color: rgba(232, 228, 223, 0.8);
+        }
+
+        .team-main-item .icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(77, 124, 255, 0.1);
+            border: 1px solid rgba(77, 124, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 18px;
-            transition: all 0.2s;
-            backdrop-filter: blur(12px);
+            flex-shrink: 0;
         }
 
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
         }
 
-        .page-num {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.35);
-            font-weight: 500;
-            font-variant-numeric: tabular-nums;
-            min-width: 40px;
-            text-align: center;
+        .person-card {
+            padding: 28px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, transform 0.3s;
         }
 
-        /* Progress bar */
-        .progress {
-            position: fixed;
+        .person-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .person-card::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
+            right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #6366f1, #a78bfa);
-            transition: width 0.4s ease;
-            z-index: 100;
         }
 
-        /* Sub-items for activities */
-        .sub-items {
-            margin-top: 8px;
-            margin-left: 48px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .card-optimize::before { background: linear-gradient(90deg, var(--gold), transparent); }
+        .card-strong::before { background: linear-gradient(90deg, var(--mint), transparent); }
+        .card-weak::before { background: linear-gradient(90deg, var(--accent), transparent); }
 
-        .sub-item {
-            font-size: 17px;
-            color: rgba(255, 255, 255, 0.6);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sub-item::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(52, 211, 153, 0.5);
-            flex-shrink: 0;
-        }
-
-        /* Fails */
-        .fail-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            font-size: 20px;
-            color: rgba(255, 255, 255, 0.75);
-            line-height: 1.5;
-            padding: 20px 24px;
-            background: rgba(239, 68, 68, 0.05);
-            border: 1px solid rgba(239, 68, 68, 0.1);
-            border-radius: 14px;
-        }
-
-        .fail-item .icon {
-            flex-shrink: 0;
-            font-size: 20px;
-            margin-top: 2px;
-        }
-
-        /* End slide */
-        .slide-end h2 {
-            font-size: 56px;
-            background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .person-card .badge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 100px;
+            display: inline-block;
             margin-bottom: 16px;
         }
 
-        .slide-end .subtitle {
-            font-size: 20px;
-            color: rgba(255, 255, 255, 0.4);
+        .badge-gold { background: rgba(255, 184, 0, 0.1); color: var(--gold); }
+        .badge-mint { background: rgba(0, 229, 160, 0.1); color: var(--mint); }
+        .badge-red { background: rgba(255, 61, 0, 0.1); color: var(--accent); }
+
+        .person-card .card-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(232, 228, 223, 0.7);
+        }
+
+        .person-card .card-text strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ============ STATS ============ */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 36px;
+            max-width: 900px;
+        }
+
+        .stat-block {
+            padding: 32px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .stat-block:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-block .stat-number {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-block .stat-label {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stat-accent { color: var(--accent); }
+        .stat-mint { color: var(--mint); }
+        .stat-gold { color: var(--gold); }
+
+        .stat-block::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            opacity: 0.04;
+        }
+
+        .stat-block:nth-child(1)::after { background: var(--mint); }
+        .stat-block:nth-child(2)::after { background: var(--blue); }
+        .stat-block:nth-child(3)::after { background: var(--gold); }
+
+        /* ============ FAILS ============ */
+        .fail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 780px;
+        }
+
+        .fail-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 24px 28px;
+            border-radius: 12px;
+            background: rgba(255, 61, 0, 0.03);
+            border: 1px solid rgba(255, 61, 0, 0.08);
+            transition: border-color 0.3s;
+        }
+
+        .fail-card:hover {
+            border-color: rgba(255, 61, 0, 0.16);
+        }
+
+        .fail-card .fail-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 61, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .fail-card .fail-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(232, 228, 223, 0.75);
+        }
+
+        .fail-card .fail-text strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ============ END SLIDE ============ */
+        .slide-end {
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-end::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 229, 160, 0.06) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .end-q2 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 140px;
+            font-weight: 900;
+            letter-spacing: -4px;
+            background: linear-gradient(135deg, var(--mint) 0%, var(--blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .end-label {
+            font-size: 18px;
+            color: var(--muted);
             font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
-        /* Keyboard hint */
-        .hint {
+        .end-line {
+            width: 40px;
+            height: 2px;
+            background: var(--mint);
+            margin: 24px auto;
+            opacity: 0.4;
+        }
+
+        /* ============ NAVIGATION ============ */
+        .nav-bar {
             position: fixed;
-            bottom: 36px;
-            left: 40px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.2);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
             z-index: 100;
+            background: linear-gradient(to top, rgba(8, 8, 12, 0.9) 0%, transparent 100%);
         }
 
-        .hint kbd {
-            display: inline-block;
-            padding: 2px 8px;
+        .nav-left {
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-left kbd {
+            padding: 3px 8px;
             border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--dim);
+            background: rgba(255, 255, 255, 0.03);
             font-family: inherit;
             font-size: 11px;
-            margin: 0 2px;
+            color: var(--muted);
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--dim);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .nav-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 12px rgba(255, 61, 0, 0.3);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .nav-dot:hover:not(.active) {
+            background: var(--muted);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--dim);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(255, 61, 0, 0.05);
+        }
+
+        .nav-counter {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            min-width: 48px;
+            text-align: center;
+        }
+
+        /* Progress line at top */
+        .progress-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), #FF7A45);
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 200;
+        }
+
+        /* Slide-specific backgrounds */
+        .slide-problems-bg {
+            background: var(--bg);
+        }
+        .slide-problems-bg::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 61, 0, 0.04) 0%, transparent 70%);
+            top: 20%;
+            right: -10%;
+            pointer-events: none;
+        }
+
+        .slide-goals-bg {
+            background: var(--bg);
+        }
+        .slide-goals-bg::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 229, 160, 0.04) 0%, transparent 70%);
+            bottom: 10%;
+            left: -5%;
+            pointer-events: none;
+        }
+
+        .slide-generic {
+            background: var(--bg);
+        }
+
+        /* Two-column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .col-left h2 {
+            margin-bottom: 24px;
+        }
+
+        /* Vertical separator for two-col */
+        .two-col::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            bottom: 15%;
+            left: 50%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--dim), transparent);
+        }
+
+        @media (max-width: 900px) {
+            .slide { padding: 40px 32px; }
+            .title-main { font-size: 64px; letter-spacing: -3px; }
+            h2 { font-size: 36px; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr; }
+            .two-col { grid-template-columns: 1fr; }
+            .two-col::before { display: none; }
+            .slide-num { font-size: 160px; }
         }
     </style>
 </head>
 <body>
 
-<div class="progress" id="progress"></div>
+<div class="grain"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="progress-line" id="progress"></div>
 
-<!-- Slide 1: Title -->
-<div class="slide slide-title active" data-index="0">
-    <h1>Отчет Q1</h1>
-    <div class="subtitle">Маркетинг &mdash; итоги первого квартала</div>
+<!-- ==================== SLIDE 1: TITLE ==================== -->
+<div class="slide slide-title active">
+    <div class="title-label anim d1">Маркетинг</div>
+    <div class="title-main anim d2">
+        <span>Отчёт </span><span class="title-q">Q1</span>
+    </div>
+    <div class="title-line anim d3"></div>
+    <div class="title-sub anim d4">Итоги первого квартала</div>
+
+    <div class="deco-circle" style="width:300px;height:300px;top:10%;left:5%;border-color:var(--accent);"></div>
+    <div class="deco-circle" style="width:180px;height:180px;bottom:15%;right:10%;border-color:var(--mint);"></div>
+    <div class="deco-line deco-line-h" style="top:25%;right:8%;"></div>
+    <div class="deco-line deco-line-v" style="bottom:10%;left:12%;"></div>
 </div>
 
-<!-- Slide 2: Problems -->
-<div class="slide slide-problems" data-index="1">
-    <span class="tag tag-red">Точка старта</span>
-    <h2>Что было, когда я пришел</h2>
-    <div class="items">
-        <div class="item">
-            <div class="icon icon-red">&#x26A0;</div>
-            <div class="text">Разрозненная команда, которая <b>не понимала что с ней будет дальше</b></div>
+<!-- ==================== SLIDE 2: PROBLEMS ==================== -->
+<div class="slide slide-problems-bg">
+    <div class="slide-num">01</div>
+    <div class="section-tag tag-accent anim d1">Точка старта</div>
+    <h2 class="anim d2">Что было,<br>когда я <span class="highlight hl-accent">пришёл</span></h2>
+    <div class="list">
+        <div class="list-item anim d3">
+            <div class="num num-accent">01</div>
+            <div class="content">Разрозненная команда, которая <strong>не понимала, что с ней будет дальше</strong></div>
         </div>
-        <div class="item">
-            <div class="icon icon-red">&#x26A0;</div>
-            <div class="text"><b>Отсутствие стратегии</b> и приоритетов внутри команды маркетинга</div>
+        <div class="list-item anim d4">
+            <div class="num num-accent">02</div>
+            <div class="content"><strong>Отсутствие стратегии</strong> и приоритетов внутри команды маркетинга</div>
         </div>
-        <div class="item">
-            <div class="icon icon-red">&#x26A0;</div>
-            <div class="text">Не выстроенные процессы взаимодействия с командами <b>баинга и аккаунтинга</b></div>
+        <div class="list-item anim d5">
+            <div class="num num-accent">03</div>
+            <div class="content">Не выстроенные процессы взаимодействия с командами <strong>баинга и аккаунтинга</strong></div>
         </div>
-        <div class="item">
-            <div class="icon icon-red">&#x26A0;</div>
-            <div class="text"><b>Слабая интеграция</b> маркетинга в бизнес</div>
+        <div class="list-item anim d6">
+            <div class="num num-accent">04</div>
+            <div class="content"><strong>Слабая интеграция</strong> маркетинга в бизнес</div>
+        </div>
+    </div>
+
+    <div class="deco-line deco-line-h" style="top:15%;right:5%;background:var(--accent);"></div>
+</div>
+
+<!-- ==================== SLIDE 3: GOALS ==================== -->
+<div class="slide slide-goals-bg">
+    <div class="slide-num">02</div>
+    <div class="section-tag tag-mint anim d1">Цель Q1</div>
+    <h2 class="anim d2">Что нужно было <span class="highlight hl-mint">сделать</span></h2>
+    <div class="list">
+        <div class="list-item anim d3">
+            <div class="num num-mint">&#x2713;</div>
+            <div class="content"><strong>Структурировать</strong> работу маркетинга</div>
+        </div>
+        <div class="list-item anim d4">
+            <div class="num num-mint">&#x2713;</div>
+            <div class="content"><strong>Выстроить</strong> базовые процессы</div>
+        </div>
+        <div class="list-item anim d5">
+            <div class="num num-mint">&#x2713;</div>
+            <div class="content">Определить <strong>тактический план</strong> действий</div>
+        </div>
+        <div class="list-item anim d6">
+            <div class="num num-mint">&#x2713;</div>
+            <div class="content">Запустить активности для <strong>усиления бренда</strong></div>
+        </div>
+        <div class="list-item anim d7">
+            <div class="num num-mint">&#x2713;</div>
+            <div class="content">Поддержать баинг в <strong>генерации лидов</strong></div>
         </div>
     </div>
 </div>
 
-<!-- Slide 3: Goals -->
-<div class="slide slide-goals" data-index="2">
-    <span class="tag tag-green">Основная цель Q1</span>
-    <h2>Что нужно было сделать</h2>
-    <div class="items">
-        <div class="item">
-            <div class="icon icon-green">&#x2714;</div>
-            <div class="text"><b>Структурировать</b> работу маркетинга</div>
+<!-- ==================== SLIDE 4: TEAM ==================== -->
+<div class="slide slide-generic">
+    <div class="slide-num">03</div>
+    <div class="section-tag tag-blue anim d1">Результат</div>
+    <h2 class="anim d2"><span class="highlight hl-blue">Команда</span></h2>
+
+    <div class="team-main-item anim d3" style="max-width:420px;margin-bottom:32px;">
+        <div class="icon-circle">&#x1F504;</div>
+        <span><strong>Перераспределили роли</strong> внутри команды</span>
+    </div>
+
+    <div class="cards-grid anim d4">
+        <div class="person-card card-optimize">
+            <div class="badge badge-gold">Оптимизация</div>
+            <div class="card-text"><strong>1 увольнение</strong> для оптимизации работ</div>
         </div>
-        <div class="item">
-            <div class="icon icon-green">&#x2714;</div>
-            <div class="text"><b>Выстроить</b> базовые процессы</div>
+        <div class="person-card card-strong">
+            <div class="badge badge-mint">Рост</div>
+            <div class="card-text"><strong>Диана</strong> — высокая мотивация и вовлечённость</div>
         </div>
-        <div class="item">
-            <div class="icon icon-green">&#x2714;</div>
-            <div class="text">Определить <b>тактический план</b> действий</div>
+        <div class="person-card card-weak">
+            <div class="badge badge-red">Замена</div>
+            <div class="card-text"><strong>Лиза</strong> — низкая скорость и вовлечённость, решение о замене</div>
         </div>
-        <div class="item">
-            <div class="icon icon-green">&#x2714;</div>
-            <div class="text">Запустить активности для <b>усиления бренда</b></div>
+    </div>
+
+    <div class="deco-circle" style="width:240px;height:240px;top:8%;right:5%;border-color:var(--blue);"></div>
+</div>
+
+<!-- ==================== SLIDE 5: STRATEGY ==================== -->
+<div class="slide slide-generic">
+    <div class="slide-num">04</div>
+    <div class="section-tag tag-gold anim d1">Результат</div>
+    <h2 class="anim d2"><span class="highlight hl-gold">Стратегия</span></h2>
+    <div class="list">
+        <div class="list-item anim d3">
+            <div class="num num-gold">01</div>
+            <div class="content">Сформирована <strong>тактическая часть на H1</strong> с ключевыми активностями маркетинга</div>
         </div>
-        <div class="item">
-            <div class="icon icon-green">&#x2714;</div>
-            <div class="text">Поддержать баинг в <b>генерации лидов</b></div>
+        <div class="list-item anim d4">
+            <div class="num num-gold">02</div>
+            <div class="content">Выстроена <strong>карта партнёрств</strong></div>
+        </div>
+        <div class="list-item anim d5">
+            <div class="num num-gold">03</div>
+            <div class="content">Заключено <strong>стратегическое партнёрство с Ecom Club</strong></div>
+        </div>
+        <div class="list-item anim d6">
+            <div class="num num-gold">04</div>
+            <div class="content">Достигнуты договорённости о <strong>совместных активностях</strong></div>
+        </div>
+    </div>
+
+    <div class="deco-line deco-line-v" style="top:10%;right:15%;background:var(--gold);"></div>
+</div>
+
+<!-- ==================== SLIDE 6: PROCESSES ==================== -->
+<div class="slide slide-generic">
+    <div class="slide-num">05</div>
+    <div class="section-tag tag-blue anim d1">Результат</div>
+    <h2 class="anim d2"><span class="highlight hl-blue">Процессы</span></h2>
+    <div class="list">
+        <div class="list-item anim d3">
+            <div class="num num-blue">01</div>
+            <div class="content">Начал вводить <strong>процессы внутри команды</strong> и распределять зоны ответственности</div>
+        </div>
+        <div class="list-item anim d4">
+            <div class="num num-blue">02</div>
+            <div class="content">Сформирован <strong>контент-план активностей</strong> на каждый месяц</div>
+        </div>
+        <div class="list-item anim d5">
+            <div class="num num-blue">03</div>
+            <div class="content">Маркетинг <strong>интегрирован в баинг</strong> (пока только в моём лице)</div>
+        </div>
+        <div class="list-item anim d6">
+            <div class="num num-blue">04</div>
+            <div class="content">Налажены контакты с <strong>индустриальными медиа</strong></div>
+        </div>
+    </div>
+
+    <div class="deco-circle" style="width:200px;height:200px;bottom:12%;right:8%;border-color:var(--blue);"></div>
+</div>
+
+<!-- ==================== SLIDE 7: ACTIVITIES ==================== -->
+<div class="slide slide-generic">
+    <div class="slide-num">06</div>
+    <div class="section-tag tag-mint anim d1">Результат</div>
+    <h2 class="anim d2"><span class="highlight hl-mint">Активности</span></h2>
+    <div class="list" style="margin-bottom:0;">
+        <div class="list-item anim d3">
+            <div class="num num-mint">&#x25CF;</div>
+            <div class="content">Провели <strong>смену айдентики</strong></div>
+        </div>
+        <div class="list-item anim d4">
+            <div class="num num-mint">&#x25CF;</div>
+            <div class="content">Выпустили <strong>статьи на Адинекс</strong> с кейсами</div>
+        </div>
+        <div class="list-item anim d5">
+            <div class="num num-mint">&#x25CF;</div>
+            <div class="content">Начата работа с <strong>SEO</strong></div>
+        </div>
+        <div class="list-item anim d6">
+            <div class="num num-mint">&#x25CF;</div>
+            <div class="content"><strong>Спонсорство</strong> мероприятия Digital Club</div>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-block anim d6">
+            <div class="stat-number stat-mint">10</div>
+            <div class="stat-label">Лидов</div>
+        </div>
+        <div class="stat-block anim d7">
+            <div class="stat-number stat-gold">13</div>
+            <div class="stat-label">Целевых контактов</div>
+        </div>
+        <div class="stat-block anim d8">
+            <div class="stat-number stat-accent">TBD</div>
+            <div class="stat-label">Финансовый эффект</div>
         </div>
     </div>
 </div>
 
-<!-- Slide 4: Team -->
-<div class="slide slide-team" data-index="3">
-    <span class="tag tag-purple">Результат</span>
-    <h2>Команда</h2>
-    <div class="items" style="margin-bottom: 32px;">
-        <div class="item">
-            <div class="icon icon-blue">&#x1F465;</div>
-            <div class="text"><b>Перераспределили роли</b> внутри команды</div>
+<!-- ==================== SLIDE 8: FAILS ==================== -->
+<div class="slide slide-generic">
+    <div class="slide-num">07</div>
+    <div class="section-tag tag-accent anim d1">Зоны роста</div>
+    <h2 class="anim d2">Что не <span class="highlight hl-accent">получилось</span></h2>
+    <div class="fail-list">
+        <div class="fail-card anim d3">
+            <div class="fail-icon">?</div>
+            <div class="fail-text">Под вопросом <strong>участие в кейсах</strong></div>
+        </div>
+        <div class="fail-card anim d4">
+            <div class="fail-icon">&#x21BB;</div>
+            <div class="fail-text">Не до конца выстроены <strong>процессы внутри маркетинга</strong></div>
+        </div>
+        <div class="fail-card anim d5">
+            <div class="fail-icon">&#x2715;</div>
+            <div class="fail-text">Не удалось провести <strong>выездное мероприятие</strong> с клиентами</div>
         </div>
     </div>
-    <div class="team-grid">
-        <div class="team-card">
-            <div class="status status-opt">Оптимизация</div>
-            <div class="desc"><b>1 увольнение</b> для оптимизации работ</div>
-        </div>
-        <div class="team-card">
-            <div class="status status-good">Высокий уровень</div>
-            <div class="desc"><b>Диана</b> &mdash; высокая мотивация и вовлеченность</div>
-        </div>
-        <div class="team-card">
-            <div class="status status-bad">Замена</div>
-            <div class="desc"><b>Лиза</b> &mdash; низкая скорость и вовлеченность, решение о замене</div>
-        </div>
+
+    <div class="deco-line deco-line-h" style="bottom:20%;right:5%;background:var(--accent);"></div>
+</div>
+
+<!-- ==================== SLIDE 9: END ==================== -->
+<div class="slide slide-end">
+    <div class="end-q2 anim d1">Q2</div>
+    <div class="end-line anim d2"></div>
+    <div class="end-label anim d3">Вопросы и обсуждение</div>
+
+    <div class="deco-circle" style="width:400px;height:400px;top:15%;left:10%;border-color:var(--mint);"></div>
+    <div class="deco-circle" style="width:250px;height:250px;bottom:20%;right:15%;border-color:var(--accent);"></div>
+</div>
+
+<!-- ==================== NAV ==================== -->
+<div class="nav-bar">
+    <div class="nav-left">
+        <kbd>&#x2190;</kbd> <kbd>&#x2192;</kbd> навигация
     </div>
-</div>
-
-<!-- Slide 5: Strategy -->
-<div class="slide slide-strategy" data-index="4">
-    <span class="tag tag-yellow">Результат</span>
-    <h2>Стратегия</h2>
-    <div class="items">
-        <div class="item">
-            <div class="icon icon-yellow">&#x1F4CB;</div>
-            <div class="text">Сформирована <b>тактическая часть на H1</b> с ключевыми активностями маркетинга</div>
-        </div>
-        <div class="item">
-            <div class="icon icon-yellow">&#x1F5FA;</div>
-            <div class="text">Выстроена <b>карта партнерств</b></div>
-        </div>
-        <div class="item">
-            <div class="icon icon-yellow">&#x1F91D;</div>
-            <div class="text">Заключено <b>стратегическое партнерство с Ecom Club</b></div>
-        </div>
-        <div class="item">
-            <div class="icon icon-yellow">&#x1F4AC;</div>
-            <div class="text">Достигнуты договоренности о <b>совместных активностях</b></div>
-        </div>
+    <div class="nav-center" id="navDots"></div>
+    <div class="nav-right">
+        <button class="nav-btn" onclick="go(-1)">&#x2190;</button>
+        <div class="nav-counter" id="counter">1/9</div>
+        <button class="nav-btn" onclick="go(1)">&#x2192;</button>
     </div>
-</div>
-
-<!-- Slide 6: Processes -->
-<div class="slide slide-processes" data-index="5">
-    <span class="tag tag-cyan">Результат</span>
-    <h2>Процессы</h2>
-    <div class="items">
-        <div class="item">
-            <div class="icon icon-cyan">&#x2699;</div>
-            <div class="text">Начал вводить <b>процессы внутри команды</b> и распределять зоны ответственности</div>
-        </div>
-        <div class="item">
-            <div class="icon icon-cyan">&#x1F4C5;</div>
-            <div class="text">Сформирован <b>контент-план активностей</b> на каждый месяц</div>
-        </div>
-        <div class="item">
-            <div class="icon icon-cyan">&#x1F517;</div>
-            <div class="text">Маркетинг <b>интегрирован в баинг</b> (пока только в моем лице)</div>
-        </div>
-        <div class="item">
-            <div class="icon icon-cyan">&#x1F4F0;</div>
-            <div class="text">Налажены контакты с <b>индустриальными медиа</b></div>
-        </div>
-    </div>
-</div>
-
-<!-- Slide 7: Activities -->
-<div class="slide slide-activities" data-index="6">
-    <span class="tag tag-emerald">Результат</span>
-    <h2>Активности</h2>
-    <div class="items">
-        <div class="item">
-            <div class="icon icon-emerald">&#x1F3A8;</div>
-            <div class="text">Провели <b>смену айдентики</b></div>
-        </div>
-        <div class="item">
-            <div class="icon icon-emerald">&#x1F4DD;</div>
-            <div class="text">Выпустили <b>статьи на Адинекс</b> с кейсами</div>
-        </div>
-        <div class="item">
-            <div class="icon icon-emerald">&#x1F50D;</div>
-            <div class="text">Начата работа с <b>SEO</b></div>
-        </div>
-        <div class="item">
-            <div class="icon icon-emerald">&#x1F389;</div>
-            <div class="text"><b>Спонсорство Digital Club</b></div>
-        </div>
-    </div>
-    <div class="stats" style="margin-top: 28px;">
-        <div class="stat-card">
-            <div class="number number-green">10</div>
-            <div class="label">Лидов</div>
-        </div>
-        <div class="stat-card">
-            <div class="number number-cyan">13</div>
-            <div class="label">Целевых контактов</div>
-        </div>
-        <div class="stat-card">
-            <div class="number number-yellow">TBD</div>
-            <div class="label">Финансовый эффект</div>
-        </div>
-    </div>
-</div>
-
-<!-- Slide 8: Fails -->
-<div class="slide slide-fails" data-index="7">
-    <span class="tag tag-orange">Зоны роста</span>
-    <h2>Что не получилось</h2>
-    <div class="items" style="gap: 16px;">
-        <div class="fail-item">
-            <div class="icon">&#x2753;</div>
-            <div class="text">Под вопросом <b>участие в кейсах</b></div>
-        </div>
-        <div class="fail-item">
-            <div class="icon">&#x1F527;</div>
-            <div class="text">Не до конца выстроены <b>процессы внутри маркетинга</b></div>
-        </div>
-        <div class="fail-item">
-            <div class="icon">&#x1F4C5;</div>
-            <div class="text">Не удалось провести <b>выездное мероприятие</b> с клиентами</div>
-        </div>
-    </div>
-</div>
-
-<!-- Slide 9: End -->
-<div class="slide slide-end" data-index="8">
-    <h2>Q2 &rarr;</h2>
-    <div class="subtitle">Вопросы и обсуждение</div>
-</div>
-
-<!-- Navigation -->
-<div class="nav">
-    <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">&#x2190;</button>
-    <div class="page-num" id="pageNum">1 / 9</div>
-    <button class="nav-btn" id="nextBtn" onclick="navigate(1)">&#x2192;</button>
-</div>
-
-<div class="hint">
-    <kbd>&larr;</kbd> <kbd>&rarr;</kbd> для навигации
 </div>
 
 <script>
-    let current = 0;
+    // Slides
     const slides = document.querySelectorAll('.slide');
     const total = slides.length;
-    const progress = document.getElementById('progress');
-    const pageNum = document.getElementById('pageNum');
+    let current = 0;
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.remove('active', 'prev');
-            if (i === index) {
-                slide.classList.add('active');
-            } else if (i < index) {
-                slide.classList.add('prev');
-            }
+    // Build nav dots
+    const dotsContainer = document.getElementById('navDots');
+    slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goTo(i);
+        dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+        if (index < 0 || index >= total) return;
+
+        // Remove active animations
+        slides[current].querySelectorAll('.anim').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
         });
-        progress.style.width = ((index + 1) / total * 100) + '%';
-        pageNum.textContent = (index + 1) + ' / ' + total;
+
+        slides[current].classList.remove('active');
+        current = index;
+        slides[current].classList.add('active');
+
+        // Re-trigger animations
+        requestAnimationFrame(() => {
+            slides[current].querySelectorAll('.anim').forEach(el => {
+                el.style.opacity = '';
+                el.style.transform = '';
+            });
+        });
+
+        // Update dots
+        document.querySelectorAll('.nav-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+
+        // Update counter & progress
+        document.getElementById('counter').textContent = (current + 1) + '/' + total;
+        document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
     }
 
-    function navigate(dir) {
-        const next = current + dir;
-        if (next >= 0 && next < total) {
-            current = next;
-            showSlide(current);
-        }
-    }
+    function go(dir) { goTo(current + dir); }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === ' ') {
-            e.preventDefault();
-            navigate(1);
-        } else if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            navigate(-1);
-        }
+    // Keyboard
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
     });
 
-    // Touch support
-    let touchStartX = 0;
-    document.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-    });
-    document.addEventListener('touchend', (e) => {
-        const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) {
-            navigate(diff > 0 ? 1 : -1);
-        }
+    // Touch
+    let tx = 0;
+    document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+    document.addEventListener('touchend', e => {
+        const dx = tx - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 50) go(dx > 0 ? 1 : -1);
     });
 
-    showSlide(0);
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursorDot');
+
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('button, .nav-dot, .list-item, .person-card, .stat-block, .fail-card').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Init
+    goTo(0);
 </script>
 
 </body>
