@@ -6,124 +6,64 @@
     <title>Q1 Report — Marketing</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #FFFFFF;
-            --bg-alt: #F7F7F8;
-            --text: #111827;
-            --text-secondary: #6B7280;
-            --text-light: #9CA3AF;
-            --border: #E5E7EB;
-            --blue: #2563EB;
-            --blue-light: #EFF6FF;
-            --green: #059669;
-            --green-light: #ECFDF5;
-            --red: #DC2626;
-            --red-light: #FEF2F2;
-            --amber: #D97706;
-            --amber-light: #FFFBEB;
-            --purple: #7C3AED;
-            --purple-light: #F5F3FF;
-            --cyan: #0891B2;
-            --cyan-light: #ECFEFF;
-            --indigo: #4F46E5;
-            --indigo-light: #EEF2FF;
-            --radius: 16px;
+            --bg: #F5F5F5;
+            --slide-bg: #FFFFFF;
+            --card: #E8E8E8;
+            --card-hover: #DEDEDE;
+            --text: #1A1A1A;
+            --text-secondary: #4A4A4A;
+            --text-muted: #8A8A8A;
+            --red: #E31E24;
+            --red-dark: #C41A1F;
+            --red-light: #FF4449;
+            --white: #FFFFFF;
+            --border: #E5E5E5;
+            --radius: 24px;
+            --radius-sm: 18px;
+            --radius-pill: 100px;
         }
 
-        /* Dark theme */
         [data-theme="dark"] {
-            --bg: #111118;
-            --bg-alt: #0A0A0F;
-            --text: #E8E4DF;
-            --text-secondary: #9CA3AF;
-            --text-light: #6B7280;
-            --border: #2A2A35;
-            --blue-light: rgba(37, 99, 235, 0.12);
-            --green-light: rgba(5, 150, 105, 0.12);
-            --red-light: rgba(220, 38, 38, 0.12);
-            --amber-light: rgba(217, 119, 6, 0.12);
-            --purple-light: rgba(124, 58, 237, 0.12);
-            --cyan-light: rgba(8, 145, 178, 0.12);
-            --indigo-light: rgba(79, 70, 229, 0.12);
-        }
-
-        [data-theme="dark"] .slide-hero {
-            background: linear-gradient(180deg, #151525 0%, var(--bg) 100%);
-        }
-
-        [data-theme="dark"] .slide-end {
-            background: linear-gradient(180deg, var(--bg) 0%, #151525 100%);
-        }
-
-        [data-theme="dark"] .bg-warm { background: linear-gradient(180deg, rgba(217, 119, 6, 0.06) 0%, var(--bg) 40%); }
-        [data-theme="dark"] .bg-cool { background: linear-gradient(180deg, rgba(37, 99, 235, 0.06) 0%, var(--bg) 40%); }
-        [data-theme="dark"] .bg-mint { background: linear-gradient(180deg, rgba(5, 150, 105, 0.06) 0%, var(--bg) 40%); }
-        [data-theme="dark"] .bg-rose { background: linear-gradient(180deg, rgba(220, 38, 38, 0.06) 0%, var(--bg) 40%); }
-        [data-theme="dark"] .bg-violet { background: linear-gradient(180deg, rgba(124, 58, 237, 0.06) 0%, var(--bg) 40%); }
-        [data-theme="dark"] .bg-sky { background: linear-gradient(180deg, rgba(8, 145, 178, 0.06) 0%, var(--bg) 40%); }
-        [data-theme="dark"] .bg-indigo { background: linear-gradient(180deg, rgba(79, 70, 229, 0.06) 0%, var(--bg) 40%); }
-
-        [data-theme="dark"] .fail {
-            background: rgba(220, 38, 38, 0.08);
-            border-color: rgba(220, 38, 38, 0.15);
-        }
-
-        [data-theme="dark"] .fail p { color: #FCA5A5; }
-        [data-theme="dark"] .fail p strong { color: #FECACA; }
-
-        [data-theme="dark"] .growth-highlight {
-            background: rgba(37, 99, 235, 0.1);
-            border-color: rgba(37, 99, 235, 0.2);
-        }
-
-        [data-theme="dark"] .qr-frame {
-            background: #FFFFFF;
-        }
-
-        [data-theme="dark"] .nav {
-            background: rgba(17, 17, 24, 0.85);
-            border-color: var(--border);
-        }
-
-        [data-theme="dark"] .nav-btn:hover {
-            background: rgba(255,255,255,0.06);
-        }
-
-        [data-theme="dark"] .nav-dot {
-            background: #3A3A45;
-        }
-
-        [data-theme="dark"] .progress {
-            background: #6D8FFF;
+            --bg: #0F0F0F;
+            --slide-bg: #1A1A1A;
+            --card: #2A2A2A;
+            --card-hover: #333333;
+            --text: #F5F5F5;
+            --text-secondary: #BDBDBD;
+            --text-muted: #7A7A7A;
+            --red: #E31E24;
+            --border: #2E2E2E;
+            --white: #FFFFFF;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, system-ui, sans-serif;
-            background: var(--bg-alt);
+            font-family: 'Manrope', -apple-system, system-ui, sans-serif;
+            background: var(--bg);
             color: var(--text);
             overflow: hidden;
             height: 100vh;
             width: 100vw;
             -webkit-font-smoothing: antialiased;
+            transition: background 0.3s, color 0.3s;
         }
 
         .slide {
             position: absolute;
             inset: 0;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 80px 140px;
-            background: var(--bg);
+            justify-content: center;
+            padding: 60px;
+            background: var(--slide-bg);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.45s ease;
+            transition: opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s;
+            overflow: hidden;
         }
 
         .slide.active { opacity: 1; pointer-events: auto; }
@@ -137,430 +77,398 @@
         }
 
         .d1 { transition-delay: 0.05s; }
-        .d2 { transition-delay: 0.12s; }
-        .d3 { transition-delay: 0.19s; }
-        .d4 { transition-delay: 0.26s; }
-        .d5 { transition-delay: 0.33s; }
-        .d6 { transition-delay: 0.40s; }
-        .d7 { transition-delay: 0.47s; }
-        .d8 { transition-delay: 0.54s; }
+        .d2 { transition-delay: 0.13s; }
+        .d3 { transition-delay: 0.21s; }
+        .d4 { transition-delay: 0.29s; }
+        .d5 { transition-delay: 0.37s; }
+        .d6 { transition-delay: 0.45s; }
+        .d7 { transition-delay: 0.53s; }
+        .d8 { transition-delay: 0.61s; }
 
-        /* Title */
-        .slide-hero {
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(180deg, #F0F4FF 0%, var(--bg) 100%);
+        /* ====== SLIDE LAYOUT ====== */
+        .slide-container {
+            width: 100%;
+            max-width: 1400px;
+            height: 100%;
+            max-height: 840px;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 24px;
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--blue);
-            background: var(--blue-light);
-            padding: 8px 20px;
-            border-radius: 100px;
-            margin-bottom: 40px;
+        .slide-container.single {
+            grid-template-columns: 1fr;
         }
 
-        .hero-badge .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--blue);
-        }
-
-        .hero-title {
-            font-size: 88px;
-            font-weight: 800;
-            letter-spacing: -3px;
-            line-height: 1;
-            margin-bottom: 20px;
-        }
-
-        .hero-title .q { color: var(--blue); }
-
-        .hero-sub {
-            font-size: 22px;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-
-        /* Labels */
-        .label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 6px 16px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            width: fit-content;
-        }
-
-        .label-red { background: var(--red-light); color: var(--red); }
-        .label-green { background: var(--green-light); color: var(--green); }
-        .label-blue { background: var(--blue-light); color: var(--blue); }
-        .label-amber { background: var(--amber-light); color: var(--amber); }
-        .label-purple { background: var(--purple-light); color: var(--purple); }
-        .label-cyan { background: var(--cyan-light); color: var(--cyan); }
-        .label-indigo { background: var(--indigo-light); color: var(--indigo); }
-
-        .label-big {
-            font-size: 16px;
-            padding: 10px 24px;
-            border-radius: 10px;
-            letter-spacing: 3px;
-        }
-
-        h2 {
-            font-size: 48px;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            margin-bottom: 40px;
-        }
-
-        /* Items */
-        .items {
+        /* ====== LEFT SIDE (TITLE) ====== */
+        .left-block {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            max-width: 800px;
-            width: 100%;
+            justify-content: space-between;
+            padding: 20px 10px;
         }
 
-        .item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 18px 24px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            transition: box-shadow 0.25s, border-color 0.25s;
-        }
-
-        .item:hover {
-            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-            border-color: transparent;
-        }
-
-        .item-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .icon-red { background: var(--red-light); color: var(--red); }
-        .icon-green { background: var(--green-light); color: var(--green); }
-        .icon-blue { background: var(--blue-light); color: var(--blue); }
-        .icon-amber { background: var(--amber-light); color: var(--amber); }
-        .icon-purple { background: var(--purple-light); color: var(--purple); }
-        .icon-cyan { background: var(--cyan-light); color: var(--cyan); }
-        .icon-indigo { background: var(--indigo-light); color: var(--indigo); }
-
-        .item-text {
-            font-size: 17px;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--text-secondary);
-        }
-
-        .item-text strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        /* Cards */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            max-width: 900px;
-            width: 100%;
-        }
-
-        .card {
-            padding: 28px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--bg);
-            transition: box-shadow 0.25s, transform 0.25s;
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-            transform: translateY(-2px);
-        }
-
-        .card-badge {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 6px;
-            display: inline-block;
-            margin-bottom: 14px;
-        }
-
-        .badge-amber { background: var(--amber-light); color: var(--amber); }
-        .badge-green { background: var(--green-light); color: var(--green); }
-        .badge-red { background: var(--red-light); color: var(--red); }
-
-        .card p {
-            font-size: 15px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        .card p strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 40px;
-            max-width: 900px;
-            width: 100%;
-        }
-
-        .stat {
-            padding: 32px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--bg);
-            text-align: center;
-            transition: box-shadow 0.25s;
-        }
-
-        .stat:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
-
-        .stat-num {
-            font-size: 56px;
+        .left-top h1 {
+            font-size: 64px;
             font-weight: 800;
             letter-spacing: -2px;
             line-height: 1;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .left-top .subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+
+        /* ====== RED HERO CARD ====== */
+        .red-card {
+            background: var(--red);
+            border-radius: var(--radius);
+            padding: 48px 40px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+        }
+
+        .red-card .rc-icon {
+            position: absolute;
+            top: 32px;
+            right: 36px;
+            font-size: 40px;
+            opacity: 0.5;
+        }
+
+        .red-card .rc-number {
+            font-size: 140px;
+            font-weight: 800;
+            letter-spacing: -7px;
+            line-height: 0.85;
+            color: var(--white);
             margin-bottom: 8px;
         }
 
-        .num-blue { color: var(--blue); }
-        .num-green { color: var(--green); }
-        .num-amber { color: var(--amber); }
-
-        .stat-desc {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .red-card .rc-label {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--white);
+            max-width: 340px;
         }
 
-        /* Fails */
-        .fails {
+        .red-card .rc-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 32px;
+        }
+
+        .red-card .pill {
+            padding: 8px 18px;
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--white);
+            color: var(--red);
+        }
+
+        .red-card .pill-ghost {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+
+        /* ====== RIGHT SIDE (GRID) ====== */
+        .right-block {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            max-width: 800px;
-            width: 100%;
+            gap: 16px;
         }
 
-        .fail {
+        .section-header {
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 20px 24px;
-            border-radius: 12px;
-            background: var(--red-light);
-            border: 1px solid #FECACA;
-            transition: box-shadow 0.25s;
+            margin-bottom: 4px;
         }
 
-        .fail:hover { box-shadow: 0 4px 16px rgba(220, 38, 38, 0.08); }
+        .section-pill {
+            background: var(--red);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: var(--radius-pill);
+            font-size: 15px;
+            font-weight: 700;
+        }
 
-        .fail-dot {
+        .section-sub {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: var(--radius-sm);
+            padding: 24px 24px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background 0.25s, transform 0.25s;
+            min-height: 170px;
+            position: relative;
+        }
+
+        .card:hover {
+            background: var(--card-hover);
+            transform: translateY(-2px);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .card-date {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .card-icon {
+            font-size: 16px;
+            color: var(--red);
+            opacity: 0.9;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* ====== HERO (SLIDE 1) ====== */
+        .slide-hero {
+            padding: 60px;
+        }
+
+        .hero-wrap {
+            width: 100%;
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            height: 100%;
+            max-height: 760px;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .hero-mini-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            background: var(--card);
+            border-radius: var(--radius-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            width: fit-content;
+            margin-bottom: 28px;
+        }
+
+        .hero-mini-tag .dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
             background: var(--red);
-            flex-shrink: 0;
-            opacity: 0.6;
         }
 
-        .fail p {
-            font-size: 17px;
-            line-height: 1.5;
-            color: #991B1B;
+        .hero-title {
+            font-size: 96px;
+            font-weight: 800;
+            letter-spacing: -4px;
+            line-height: 0.95;
+            color: var(--text);
+            margin-bottom: 24px;
         }
 
-        .fail p strong { font-weight: 600; color: #7F1D1D; }
-
-        /* Energy grid */
-        .energy-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            max-width: 960px;
-            width: 100%;
+        .hero-sub {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            max-width: 480px;
+            line-height: 1.3;
         }
 
-        .energy-card {
-            padding: 32px 24px;
+        .hero-right-card {
+            background: var(--red);
             border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--bg);
-            text-align: center;
-            transition: box-shadow 0.25s, transform 0.25s;
+            color: var(--white);
+            padding: 56px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
         }
 
-        .energy-card:hover {
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-            transform: translateY(-4px);
+        .hero-right-card .big-q {
+            font-size: 320px;
+            font-weight: 800;
+            letter-spacing: -14px;
+            line-height: 0.85;
+            color: var(--white);
         }
 
-        .energy-emoji {
-            font-size: 48px;
-            line-height: 1;
-            margin-bottom: 16px;
-        }
-
-        .energy-title {
+        .hero-right-card .hr-label {
             font-size: 18px;
-            font-weight: 700;
+            font-weight: 600;
+            color: var(--white);
+            opacity: 0.8;
+        }
+
+        /* ====== STATS ====== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border-radius: var(--radius-sm);
+            padding: 28px 24px;
+            transition: background 0.25s;
+        }
+
+        .stat-card.red-stat {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .stat-card:hover {
+            background: var(--card-hover);
+        }
+
+        .stat-card.red-stat:hover {
+            background: var(--red-dark);
+        }
+
+        .stat-num {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -3px;
+            line-height: 0.9;
             color: var(--text);
             margin-bottom: 6px;
         }
 
-        .energy-desc {
-            font-size: 14px;
-            color: var(--text-light);
-            line-height: 1.4;
+        .stat-card.red-stat .stat-num {
+            color: var(--white);
         }
 
-        /* Strength cards */
-        .strength-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 900px;
-            width: 100%;
-        }
-
-        .strength-card {
-            padding: 32px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--bg);
-            transition: box-shadow 0.25s, transform 0.25s;
-        }
-
-        .strength-card:hover {
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-            transform: translateY(-2px);
-        }
-
-        .strength-card .s-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-bottom: 16px;
-        }
-
-        .strength-card .s-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .strength-card .s-desc {
-            font-size: 15px;
-            line-height: 1.5;
-            color: var(--text-secondary);
-        }
-
-        /* Growth slide with QR */
-        .growth-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            max-width: 960px;
-            width: 100%;
-        }
-
-        .growth-text .growth-main {
-            font-size: 20px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 24px;
-        }
-
-        .growth-text .growth-main strong {
-            color: var(--text);
-            font-weight: 700;
-        }
-
-        .growth-highlight {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 20px;
-            border-radius: 12px;
-            background: var(--blue-light);
-            border: 1px solid #BFDBFE;
-        }
-
-        .growth-highlight .gh-icon {
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .growth-highlight .gh-text {
-            font-size: 15px;
+        .stat-desc {
+            font-size: 13px;
             font-weight: 600;
-            color: var(--blue);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .qr-block {
+        .stat-card.red-stat .stat-desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* ====== END SLIDE ====== */
+        .slide-end .slide-container {
+            grid-template-columns: 1fr;
+        }
+
+        .end-wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .end-card {
+            background: var(--red);
+            border-radius: var(--radius);
+            padding: 80px;
+            color: var(--white);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .end-mark {
+            font-size: 240px;
+            font-weight: 800;
+            letter-spacing: -10px;
+            line-height: 0.85;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .end-sub {
+            font-size: 20px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* ====== QR BLOCK ====== */
+        .qr-card {
+            background: var(--card);
+            border-radius: var(--radius-sm);
+            padding: 28px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 16px;
         }
 
         .qr-frame {
-            width: 220px;
-            height: 220px;
-            border-radius: 20px;
-            border: 2px solid var(--border);
-            background: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 200px;
+            height: 200px;
+            background: var(--white);
+            border-radius: 16px;
             padding: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
         }
 
         .qr-frame img {
@@ -570,72 +478,37 @@
         }
 
         .qr-label {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            color: var(--text-light);
+            color: var(--text-secondary);
             text-align: center;
         }
 
-        .qr-sublabel {
-            font-size: 12px;
-            color: var(--text-light);
-            text-align: center;
-            margin-top: -8px;
-        }
-
-        /* End slide */
-        .slide-end {
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(180deg, var(--bg) 0%, #F0F4FF 100%);
-        }
-
-        .end-title {
-            font-size: 96px;
-            font-weight: 800;
-            color: var(--blue);
-            letter-spacing: -3px;
-            line-height: 1;
-            margin-bottom: 16px;
-        }
-
-        .end-sub {
-            font-size: 20px;
-            font-weight: 400;
-            color: var(--text-light);
-        }
-
-        /* Backgrounds */
-        .bg-warm { background: linear-gradient(180deg, #FFF8F0 0%, var(--bg) 40%); }
-        .bg-cool { background: linear-gradient(180deg, #F0F4FF 0%, var(--bg) 40%); }
-        .bg-mint { background: linear-gradient(180deg, #ECFDF5 0%, var(--bg) 40%); }
-        .bg-rose { background: linear-gradient(180deg, #FFF1F2 0%, var(--bg) 40%); }
-        .bg-violet { background: linear-gradient(180deg, #F5F3FF 0%, var(--bg) 40%); }
-        .bg-sky { background: linear-gradient(180deg, #ECFEFF 0%, var(--bg) 40%); }
-        .bg-indigo { background: linear-gradient(180deg, #EEF2FF 0%, var(--bg) 40%); }
-
-        /* Nav */
+        /* ====== NAV ====== */
         .nav {
             position: fixed;
-            bottom: 28px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 16px;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--slide-bg);
+            border-radius: var(--radius-pill);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             z-index: 100;
+        }
+
+        [data-theme="dark"] .nav {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
         }
 
         .nav-btn {
             width: 36px;
             height: 36px;
-            border-radius: 10px;
+            border-radius: 50%;
             border: none;
             background: transparent;
             color: var(--text-secondary);
@@ -647,95 +520,132 @@
             transition: all 0.2s;
         }
 
-        .nav-btn:hover { background: var(--bg-alt); color: var(--text); }
+        .nav-btn:hover {
+            background: var(--card);
+            color: var(--red);
+        }
 
-        .nav-dots { display: flex; align-items: center; gap: 5px; }
+        .nav-dots {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0 10px;
+        }
 
         .nav-dot {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            background: #D1D5DB;
+            background: var(--card);
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .nav-dot.active {
-            width: 24px;
-            border-radius: 4px;
-            background: var(--blue);
+            width: 22px;
+            border-radius: 6px;
+            background: var(--red);
         }
 
-        .nav-dot:hover:not(.active) { background: #9CA3AF; }
+        .nav-dot:hover:not(.active) { background: var(--text-muted); }
 
         .nav-num {
             font-size: 12px;
-            font-weight: 600;
-            color: var(--text-light);
+            font-weight: 700;
+            color: var(--text-muted);
             min-width: 48px;
             text-align: center;
             font-variant-numeric: tabular-nums;
         }
 
+        /* ====== PROGRESS ====== */
         .progress {
             position: fixed;
             top: 0;
             left: 0;
             height: 3px;
-            background: var(--blue);
-            border-radius: 0 2px 2px 0;
+            background: var(--red);
             transition: width 0.45s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 200;
         }
 
-        /* Theme toggle */
+        /* ====== THEME TOGGLE ====== */
         .theme-toggle {
             position: fixed;
             top: 24px;
-            right: 32px;
+            right: 28px;
             width: 42px;
             height: 42px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: var(--bg);
+            border-radius: 50%;
+            border: none;
+            background: var(--slide-bg);
             color: var(--text-secondary);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             z-index: 200;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.25s;
         }
 
         .theme-toggle:hover {
-            color: var(--text);
-            border-color: var(--text-light);
+            color: var(--red);
             transform: scale(1.05);
         }
 
         .theme-toggle .icon-sun { display: none; }
-        .theme-toggle .icon-moon { display: block; }
-
         [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
         [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
-        @media (max-width: 1024px) {
-            .slide { padding: 60px 60px; }
+        /* ====== LOGO ====== */
+        .logo-corner {
+            position: fixed;
+            top: 28px;
+            left: 32px;
+            z-index: 200;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-corner .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--red);
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 1100px) {
+            .slide { padding: 40px; }
+            .slide-container, .hero-wrap { grid-template-columns: 1fr; max-height: none; }
             .hero-title { font-size: 64px; }
-            h2 { font-size: 36px; }
-            .cards, .energy-grid, .strength-grid { grid-template-columns: 1fr 1fr; }
-            .stats { grid-template-columns: 1fr; }
-            .growth-layout { grid-template-columns: 1fr; }
+            .left-top h1 { font-size: 48px; }
+            .red-card .rc-number { font-size: 100px; }
+            .red-card .rc-label { font-size: 24px; }
+            .hero-right-card .big-q { font-size: 200px; }
+            .cards-grid { grid-template-columns: 1fr 1fr; }
+            .end-mark { font-size: 140px; }
         }
 
         @media (max-width: 640px) {
-            .slide { padding: 40px 24px; }
+            .slide { padding: 24px; }
             .hero-title { font-size: 48px; letter-spacing: -2px; }
-            h2 { font-size: 28px; margin-bottom: 28px; }
-            .stat-num { font-size: 40px; }
-            .cards, .energy-grid, .strength-grid { grid-template-columns: 1fr; }
+            .left-top h1 { font-size: 36px; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr; }
+            .red-card { padding: 32px 24px; min-height: 300px; }
+            .red-card .rc-number { font-size: 80px; }
+            .red-card .rc-label { font-size: 20px; }
+            .end-mark { font-size: 96px; }
+            .end-card { padding: 48px 32px; }
+            .logo-corner { top: 16px; left: 20px; font-size: 12px; }
+            .theme-toggle { top: 16px; right: 20px; }
         }
     </style>
 </head>
@@ -743,263 +653,593 @@
 
 <div class="progress" id="progress"></div>
 
+<div class="logo-corner">
+    <span class="dot"></span>
+    go_mobile
+</div>
+
 <button class="theme-toggle" onclick="toggleTheme()" title="Тёмная / Светлая тема">
     <span class="icon-moon">&#x1F319;</span>
     <span class="icon-sun">&#x2600;&#xFE0F;</span>
 </button>
 
-<!-- 1. TITLE -->
+<!-- ================ 1. HERO ================ -->
 <div class="slide slide-hero active">
-    <div class="hero-badge anim d1"><span class="dot"></span> Маркетинг</div>
-    <div class="hero-title anim d2">Отчёт <span class="q">Q1</span></div>
-    <div class="hero-sub anim d3">Итоги первого квартала</div>
-</div>
-
-<!-- 2. ЦЕЛИ -->
-<div class="slide bg-mint">
-    <div class="label label-green anim d1">Цель Q1</div>
-    <h2 class="anim d2">Что нужно было сделать</h2>
-    <div class="items">
-        <div class="item anim d3">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text"><strong>Структурировать</strong> работу маркетинга</div>
+    <div class="hero-wrap">
+        <div class="hero-left">
+            <div class="hero-mini-tag anim d1"><span class="dot"></span> Маркетинг / Отчёт</div>
+            <div class="hero-title anim d2">Отчёт Q1</div>
+            <div class="hero-sub anim d3">Итоги первого квартала 2026</div>
         </div>
-        <div class="item anim d4">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text"><strong>Выстроить</strong> базовые процессы</div>
-        </div>
-        <div class="item anim d5">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text">Определить <strong>тактический план</strong> действий</div>
-        </div>
-        <div class="item anim d6">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text">Запустить активности для <strong>усиления бренда</strong></div>
-        </div>
-        <div class="item anim d7">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text">Поддержать баинг в <strong>генерации лидов</strong></div>
+        <div class="hero-right-card anim d3">
+            <div class="big-q">Q1</div>
+            <div class="hr-label">go_mobile · 2026</div>
         </div>
     </div>
 </div>
 
-<!-- 4. ЧТО ПОЛУЧИЛОСЬ — КОМАНДА -->
-<div class="slide bg-violet">
-    <div class="label label-green label-big anim d1">Результат Q1</div>
-    <h2 class="anim d2">Команда</h2>
-    <div class="item anim d3" style="max-width:460px;margin-bottom:28px;">
-        <div class="item-icon icon-purple">&#x21C4;</div>
-        <div class="item-text"><strong>Перераспределили роли</strong> внутри команды</div>
-    </div>
-    <div class="cards anim d4">
-        <div class="card">
-            <div class="card-badge badge-amber">Оптимизация</div>
-            <p><strong>1 увольнение</strong> для оптимизации работ</p>
-        </div>
-        <div class="card">
-            <div class="card-badge badge-green">Высокий уровень</div>
-            <p><strong>Диана</strong> — высокая мотивация и вовлечённость</p>
-        </div>
-        <div class="card">
-            <div class="card-badge badge-red">Замена</div>
-            <p><strong>Лиза</strong> — низкая скорость и вовлечённость, решение о замене</p>
-        </div>
-    </div>
-</div>
-
-<!-- 5. ЧТО ПОЛУЧИЛОСЬ — СТРАТЕГИЯ -->
-<div class="slide bg-warm">
-    <div class="label label-green label-big anim d1">Результат Q1</div>
-    <h2 class="anim d2">Стратегия</h2>
-    <div class="items">
-        <div class="item anim d3">
-            <div class="item-icon icon-amber">1</div>
-            <div class="item-text">Сформирована <strong>тактическая часть на H1</strong> с ключевыми активностями маркетинга</div>
-        </div>
-        <div class="item anim d4">
-            <div class="item-icon icon-amber">2</div>
-            <div class="item-text">Выстроена <strong>карта партнёрств</strong></div>
-        </div>
-        <div class="item anim d5">
-            <div class="item-icon icon-amber">3</div>
-            <div class="item-text">Заключено <strong>стратегическое партнёрство с Ecom Club</strong></div>
-        </div>
-        <div class="item anim d6">
-            <div class="item-icon icon-amber">4</div>
-            <div class="item-text">Достигнуты договорённости о <strong>совместных активностях</strong></div>
-        </div>
-    </div>
-</div>
-
-<!-- 6. ЧТО ПОЛУЧИЛОСЬ — ПРОЦЕССЫ -->
-<div class="slide bg-cool">
-    <div class="label label-green label-big anim d1">Результат Q1</div>
-    <h2 class="anim d2">Процессы</h2>
-    <div class="items">
-        <div class="item anim d3">
-            <div class="item-icon icon-blue">1</div>
-            <div class="item-text">Начал вводить <strong>процессы внутри команды</strong> и распределять зоны ответственности</div>
-        </div>
-        <div class="item anim d4">
-            <div class="item-icon icon-blue">2</div>
-            <div class="item-text">Сформирован <strong>контент-план активностей</strong> на каждый месяц</div>
-        </div>
-        <div class="item anim d5">
-            <div class="item-icon icon-blue">3</div>
-            <div class="item-text">Налажены контакты с <strong>индустриальными медиа</strong></div>
-        </div>
-    </div>
-</div>
-
-<!-- 7. ЧТО ПОЛУЧИЛОСЬ — АКТИВНОСТИ -->
-<div class="slide bg-mint">
-    <div class="label label-green label-big anim d1">Результат Q1</div>
-    <h2 class="anim d2">Активности</h2>
-    <div class="items">
-        <div class="item anim d3">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text">Провели <strong>смену айдентики</strong></div>
-        </div>
-        <div class="item anim d4">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text">Выпустили <strong>статьи на Адинекс</strong> с кейсами</div>
-        </div>
-        <div class="item anim d5">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text">Начата работа с <strong>SEO</strong></div>
-        </div>
-        <div class="item anim d6">
-            <div class="item-icon icon-green">&#x2713;</div>
-            <div class="item-text"><strong>Спонсорство</strong> мероприятия Digital Club</div>
-        </div>
-    </div>
-    <div class="stats">
-        <div class="stat anim d6">
-            <div class="stat-num num-green">10</div>
-            <div class="stat-desc">Лидов</div>
-        </div>
-        <div class="stat anim d7">
-            <div class="stat-num num-blue">13</div>
-            <div class="stat-desc">Целевых контактов</div>
-        </div>
-        <div class="stat anim d8">
-            <div class="stat-num num-amber">TBD</div>
-            <div class="stat-desc">Финансовый эффект</div>
-        </div>
-    </div>
-</div>
-
-<!-- 8. ЧТО НЕ ПОЛУЧИЛОСЬ -->
-<div class="slide bg-rose">
-    <div class="label label-red anim d1">Что не получилось / сложности</div>
-    <h2 class="anim d2">Где есть трудности</h2>
-    <div class="fails">
-        <div class="fail anim d3">
-            <div class="fail-dot"></div>
-            <p>Под вопросом <strong>участие в кейсах</strong></p>
-        </div>
-        <div class="fail anim d4">
-            <div class="fail-dot"></div>
-            <p>Не до конца выстроены <strong>процессы внутри маркетинга</strong></p>
-        </div>
-        <div class="fail anim d5">
-            <div class="fail-dot"></div>
-            <p>Не удалось провести <strong>выездное мероприятие</strong> с клиентами</p>
-        </div>
-    </div>
-</div>
-
-<!-- 9. МОЙ РЕСУРС -->
-<div class="slide bg-sky">
-    <div class="label label-cyan anim d1">Личный ресурс</div>
-    <h2 class="anim d2">Где я черпаю энергию</h2>
-    <div class="energy-grid">
-        <div class="energy-card anim d3">
-            <div class="energy-emoji">&#x1F3CB;&#xFE0F;</div>
-            <div class="energy-title">Спорт</div>
-            <div class="energy-desc">Физическая активность и дисциплина</div>
-        </div>
-        <div class="energy-card anim d4">
-            <div class="energy-emoji">&#x1F4BB;</div>
-            <div class="energy-title">Вайбкодинг</div>
-            <div class="energy-desc">Творчество через код и новые технологии</div>
-        </div>
-        <div class="energy-card anim d5">
-            <div class="energy-emoji">&#x1F3AE;</div>
-            <div class="energy-title">Игры</div>
-            <div class="energy-desc">Перезагрузка и стратегическое мышление</div>
-        </div>
-        <div class="energy-card anim d6">
-            <div class="energy-emoji">&#x1F634;</div>
-            <div class="energy-title">Сон</div>
-            <div class="energy-desc">Качественный отдых и восстановление</div>
-        </div>
-    </div>
-</div>
-
-<!-- 10. СИЛА GO MOBILE -->
-<div class="slide bg-indigo">
-    <div class="label label-indigo anim d1">Преимущества</div>
-    <h2 class="anim d2">Сила Go Mobile</h2>
-    <div class="strength-grid">
-        <div class="strength-card anim d3">
-            <div class="s-icon icon-indigo">&#x1F947;</div>
-            <div class="s-title">Первые на рынке</div>
-            <div class="s-desc">Мы задаём стандарты. На нас смотрят конкуренты и индустрия</div>
-        </div>
-        <div class="strength-card anim d4">
-            <div class="s-icon icon-indigo">&#x1F4A1;</div>
-            <div class="s-title">Вектор развития</div>
-            <div class="s-desc">Мы можем задавать направление развития всей индустрии</div>
-        </div>
-        <div class="strength-card anim d5">
-            <div class="s-icon icon-indigo">&#x1F50D;</div>
-            <div class="s-title">На нас смотрят</div>
-            <div class="s-desc">Рынок ориентируется на наши решения и подходы</div>
-        </div>
-        <div class="strength-card anim d6">
-            <div class="s-icon icon-indigo">&#x1F680;</div>
-            <div class="s-title">Проактивный C-level</div>
-            <div class="s-desc">Руководство вовлечено и инициирует стратегические изменения</div>
-        </div>
-    </div>
-</div>
-
-<!-- 11. ТОЧКИ РОСТА -->
-<div class="slide bg-cool">
-    <div class="label label-blue anim d1">Точки роста</div>
-    <h2 class="anim d2">Возможности для бизнеса</h2>
-    <div class="growth-layout">
-        <div class="growth-text">
-            <div class="growth-main anim d3">
-                Ключевая точка роста — <strong>экспансия на международные рынки</strong>. Это открывает новые источники дохода и усиливает позиционирование бренда на глобальном уровне.
+<!-- ================ 2. ЦЕЛИ ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Что нужно<br>было сделать?</h1>
+                <div class="subtitle anim d2">Основная цель Q1</div>
             </div>
-            <div class="growth-highlight anim d4">
-                <div class="gh-icon">&#x1F4CA;</div>
-                <div class="gh-text">Подробная аналитика — сканируйте QR-код</div>
+            <div class="red-card anim d2" style="min-height:340px;">
+                <div class="rc-icon">&#x2713;</div>
+                <div>
+                    <div class="rc-number">05</div>
+                    <div class="rc-label">Ключевых задач на квартал</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Структура</div>
+                    <div class="pill">Процессы</div>
+                    <div class="pill-ghost pill">Стратегия</div>
+                    <div class="pill-ghost pill">Бренд</div>
+                    <div class="pill-ghost pill">Лиды</div>
+                </div>
             </div>
         </div>
-        <div class="qr-block anim d5">
-            <div class="qr-frame">
-                <img src="qr.png" alt="QR-код Go Mobile">
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Задачи</div>
+                <div class="section-sub">Тактический<br>план действий</div>
             </div>
-            <div class="qr-label">Аналитика международных рынков</div>
-            <div class="qr-sublabel">Наведите камеру для просмотра</div>
+            <div class="cards-grid">
+                <div class="card anim d3">
+                    <div class="card-meta"><div class="card-date">01</div></div>
+                    <div>
+                        <div class="card-title">Структурировать работу маркетинга</div>
+                        <div class="card-desc">Упорядочить зоны ответственности и приоритеты</div>
+                    </div>
+                </div>
+                <div class="card anim d4">
+                    <div class="card-meta"><div class="card-date">02</div></div>
+                    <div>
+                        <div class="card-title">Выстроить базовые процессы</div>
+                        <div class="card-desc">Регулярные встречи, отчётность, планирование</div>
+                    </div>
+                </div>
+                <div class="card anim d5">
+                    <div class="card-meta"><div class="card-date">03</div></div>
+                    <div>
+                        <div class="card-title">Определить тактический план</div>
+                        <div class="card-desc">Роадмап активностей на H1</div>
+                    </div>
+                </div>
+                <div class="card anim d6">
+                    <div class="card-meta"><div class="card-date">04</div></div>
+                    <div>
+                        <div class="card-title">Усиление бренда</div>
+                        <div class="card-desc">Запуск активностей для роста узнаваемости</div>
+                    </div>
+                </div>
+                <div class="card anim d7" style="grid-column: span 2;">
+                    <div class="card-meta"><div class="card-date">05</div></div>
+                    <div>
+                        <div class="card-title">Поддержать баинг в генерации лидов</div>
+                        <div class="card-desc">Интегрировать маркетинг в процесс продаж</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- 12. END -->
+<!-- ================ 3. КОМАНДА ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Что получилось<br>сделать?</h1>
+                <div class="subtitle anim d2">Результат Q1 · 01 / 04</div>
+            </div>
+            <div class="red-card anim d2">
+                <div class="rc-icon">&#x1F465;</div>
+                <div>
+                    <div class="rc-number">3</div>
+                    <div class="rc-label">Ключевых решения по команде</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Диана</div>
+                    <div class="pill-ghost pill">Оптимизация</div>
+                    <div class="pill-ghost pill">Замена</div>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Команда</div>
+                <div class="section-sub">Перераспределили<br>роли внутри команды</div>
+            </div>
+            <div class="cards-grid">
+                <div class="card anim d3" style="grid-column: span 2;">
+                    <div class="card-meta">
+                        <div class="card-date">Перераспределение</div>
+                        <div class="card-icon">&#x21C4;</div>
+                    </div>
+                    <div>
+                        <div class="card-title">Переопределили зоны ответственности</div>
+                        <div class="card-desc">Роли, процессы взаимодействия, KPI</div>
+                    </div>
+                </div>
+                <div class="card anim d4">
+                    <div class="card-meta">
+                        <div class="card-date">Оптимизация</div>
+                        <div class="card-icon">&#x26A1;</div>
+                    </div>
+                    <div>
+                        <div class="card-title">1 увольнение</div>
+                        <div class="card-desc">Для оптимизации работ</div>
+                    </div>
+                </div>
+                <div class="card anim d5">
+                    <div class="card-meta">
+                        <div class="card-date">Рост</div>
+                        <div class="card-icon">&#x2B06;</div>
+                    </div>
+                    <div>
+                        <div class="card-title">Диана — драйвер</div>
+                        <div class="card-desc">Высокая мотивация и вовлечённость</div>
+                    </div>
+                </div>
+                <div class="card anim d6" style="grid-column: span 2;">
+                    <div class="card-meta">
+                        <div class="card-date">Замена</div>
+                        <div class="card-icon">&#x26A0;</div>
+                    </div>
+                    <div>
+                        <div class="card-title">Лиза — решение о замене</div>
+                        <div class="card-desc">Низкая скорость и вовлечённость</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ 4. СТРАТЕГИЯ ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Что получилось<br>сделать?</h1>
+                <div class="subtitle anim d2">Результат Q1 · 02 / 04</div>
+            </div>
+            <div class="red-card anim d2">
+                <div class="rc-icon">&#x1F3AF;</div>
+                <div>
+                    <div class="rc-number">H1</div>
+                    <div class="rc-label">План сформирован + партнёрства</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Ecom Club</div>
+                    <div class="pill-ghost pill">Карта партнёрств</div>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Стратегия</div>
+                <div class="section-sub">Тактическая часть<br>и партнёрства</div>
+            </div>
+            <div class="cards-grid">
+                <div class="card anim d3">
+                    <div class="card-meta"><div class="card-date">01</div><div class="card-icon">&#x1F4CB;</div></div>
+                    <div>
+                        <div class="card-title">Тактическая часть на H1</div>
+                        <div class="card-desc">С ключевыми активностями маркетинга</div>
+                    </div>
+                </div>
+                <div class="card anim d4">
+                    <div class="card-meta"><div class="card-date">02</div><div class="card-icon">&#x1F5FA;</div></div>
+                    <div>
+                        <div class="card-title">Карта партнёрств</div>
+                        <div class="card-desc">Потенциал и приоритизация</div>
+                    </div>
+                </div>
+                <div class="card anim d5" style="grid-column: span 2;">
+                    <div class="card-meta"><div class="card-date">03 / ключевое</div><div class="card-icon">&#x2B50;</div></div>
+                    <div>
+                        <div class="card-title">Стратегическое партнёрство с Ecom Club</div>
+                        <div class="card-desc">Заключён договор, совместные активности</div>
+                    </div>
+                </div>
+                <div class="card anim d6" style="grid-column: span 2;">
+                    <div class="card-meta"><div class="card-date">04</div><div class="card-icon">&#x1F91D;</div></div>
+                    <div>
+                        <div class="card-title">Совместные активности</div>
+                        <div class="card-desc">Достигнуты договорённости о форматах</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ 5. ПРОЦЕССЫ ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Что получилось<br>сделать?</h1>
+                <div class="subtitle anim d2">Результат Q1 · 03 / 04</div>
+            </div>
+            <div class="red-card anim d2">
+                <div class="rc-icon">&#x2699;</div>
+                <div>
+                    <div class="rc-number">3</div>
+                    <div class="rc-label">Процесса введены<br>и работают</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Контент-план</div>
+                    <div class="pill-ghost pill">Медиа</div>
+                    <div class="pill-ghost pill">Ответственность</div>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Процессы</div>
+                <div class="section-sub">Запустили работающую<br>операционную модель</div>
+            </div>
+            <div class="cards-grid">
+                <div class="card anim d3" style="grid-column: span 2;">
+                    <div class="card-meta"><div class="card-date">01</div><div class="card-icon">&#x1F510;</div></div>
+                    <div>
+                        <div class="card-title">Процессы внутри команды</div>
+                        <div class="card-desc">Зоны ответственности, регулярные встречи, планёрки</div>
+                    </div>
+                </div>
+                <div class="card anim d4">
+                    <div class="card-meta"><div class="card-date">02</div><div class="card-icon">&#x1F4C5;</div></div>
+                    <div>
+                        <div class="card-title">Контент-план на месяц</div>
+                        <div class="card-desc">Календарь активностей</div>
+                    </div>
+                </div>
+                <div class="card anim d5">
+                    <div class="card-meta"><div class="card-date">03</div><div class="card-icon">&#x1F4F0;</div></div>
+                    <div>
+                        <div class="card-title">Индустриальные медиа</div>
+                        <div class="card-desc">Налажены контакты</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ 6. АКТИВНОСТИ ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Что получилось<br>сделать?</h1>
+                <div class="subtitle anim d2">Результат Q1 · 04 / 04</div>
+            </div>
+            <div class="red-card anim d2">
+                <div class="rc-icon">&#x1F389;</div>
+                <div>
+                    <div class="rc-number">+10</div>
+                    <div class="rc-label">Лидов + 13 целевых<br>контактов с Digital Club</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Digital Club</div>
+                    <div class="pill-ghost pill">Айдентика</div>
+                    <div class="pill-ghost pill">SEO</div>
+                    <div class="pill-ghost pill">Адинекс</div>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Активности</div>
+                <div class="section-sub">Первые волны маркетинговых<br>активностей на рынке</div>
+            </div>
+            <div class="cards-grid">
+                <div class="card anim d3">
+                    <div class="card-meta"><div class="card-date">Q1</div><div class="card-icon">&#x1F3A8;</div></div>
+                    <div>
+                        <div class="card-title">Смена айдентики</div>
+                        <div class="card-desc">Ребрендинг визуального стиля</div>
+                    </div>
+                </div>
+                <div class="card anim d4">
+                    <div class="card-meta"><div class="card-date">Q1</div><div class="card-icon">&#x1F4DD;</div></div>
+                    <div>
+                        <div class="card-title">Статьи на Адинекс</div>
+                        <div class="card-desc">Публикация кейсов</div>
+                    </div>
+                </div>
+                <div class="card anim d5">
+                    <div class="card-meta"><div class="card-date">Q1</div><div class="card-icon">&#x1F50D;</div></div>
+                    <div>
+                        <div class="card-title">Начата работа с SEO</div>
+                        <div class="card-desc">Первые итерации</div>
+                    </div>
+                </div>
+                <div class="card anim d6">
+                    <div class="card-meta"><div class="card-date">Q1 / ключевое</div><div class="card-icon">&#x1F525;</div></div>
+                    <div>
+                        <div class="card-title">Digital Club — спонсорство</div>
+                        <div class="card-desc">Крупнейшая индустриальная активность</div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-row" style="grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 0;">
+                <div class="stat-card red-stat anim d7">
+                    <div class="stat-num">10</div>
+                    <div class="stat-desc">Лидов</div>
+                </div>
+                <div class="stat-card anim d7">
+                    <div class="stat-num">13</div>
+                    <div class="stat-desc">Контактов</div>
+                </div>
+                <div class="stat-card anim d8">
+                    <div class="stat-num">TBD</div>
+                    <div class="stat-desc">$ эффект</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ 7. СЛОЖНОСТИ ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Что не<br>получилось?</h1>
+                <div class="subtitle anim d2">Сложности и зоны роста</div>
+            </div>
+            <div class="red-card anim d2" style="min-height:340px;">
+                <div class="rc-icon">&#x26A0;</div>
+                <div>
+                    <div class="rc-number">3</div>
+                    <div class="rc-label">Зоны роста требуют<br>внимания в Q2</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Процессы</div>
+                    <div class="pill-ghost pill">Кейсы</div>
+                    <div class="pill-ghost pill">Мероприятие</div>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Зоны роста</div>
+                <div class="section-sub">Трудности,<br>выявленные за квартал</div>
+            </div>
+            <div class="cards-grid" style="grid-template-columns: 1fr;">
+                <div class="card anim d3">
+                    <div class="card-meta"><div class="card-date">01</div><div class="card-icon">&#x2753;</div></div>
+                    <div>
+                        <div class="card-title">Под вопросом участие в кейсах</div>
+                        <div class="card-desc">Требует согласования с продуктовыми командами</div>
+                    </div>
+                </div>
+                <div class="card anim d4">
+                    <div class="card-meta"><div class="card-date">02</div><div class="card-icon">&#x1F527;</div></div>
+                    <div>
+                        <div class="card-title">Процессы внутри маркетинга — не до конца</div>
+                        <div class="card-desc">Остались пробелы в зонах ответственности</div>
+                    </div>
+                </div>
+                <div class="card anim d5">
+                    <div class="card-meta"><div class="card-date">03</div><div class="card-icon">&#x1F4C5;</div></div>
+                    <div>
+                        <div class="card-title">Выездное мероприятие — не провели</div>
+                        <div class="card-desc">Запланировано на Q2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ 8. ЭНЕРГИЯ ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Где я черпаю<br>энергию?</h1>
+                <div class="subtitle anim d2">Личный ресурс</div>
+            </div>
+            <div class="red-card anim d2" style="min-height:340px;">
+                <div class="rc-icon">&#x26A1;</div>
+                <div>
+                    <div class="rc-number">4</div>
+                    <div class="rc-label">Источника энергии<br>и восстановления</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Спорт</div>
+                    <div class="pill-ghost pill">Код</div>
+                    <div class="pill-ghost pill">Игры</div>
+                    <div class="pill-ghost pill">Сон</div>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Ресурс</div>
+                <div class="section-sub">Что поддерживает<br>мой ресурс и энергию</div>
+            </div>
+            <div class="cards-grid">
+                <div class="card anim d3">
+                    <div class="card-meta"><div class="card-date">01</div><div class="card-icon">&#x1F3CB;&#xFE0F;</div></div>
+                    <div>
+                        <div class="card-title">Спорт</div>
+                        <div class="card-desc">Физическая активность и дисциплина</div>
+                    </div>
+                </div>
+                <div class="card anim d4">
+                    <div class="card-meta"><div class="card-date">02</div><div class="card-icon">&#x1F4BB;</div></div>
+                    <div>
+                        <div class="card-title">Вайбкодинг</div>
+                        <div class="card-desc">Творчество через код и технологии</div>
+                    </div>
+                </div>
+                <div class="card anim d5">
+                    <div class="card-meta"><div class="card-date">03</div><div class="card-icon">&#x1F3AE;</div></div>
+                    <div>
+                        <div class="card-title">Игры</div>
+                        <div class="card-desc">Перезагрузка и стратегическое мышление</div>
+                    </div>
+                </div>
+                <div class="card anim d6">
+                    <div class="card-meta"><div class="card-date">04</div><div class="card-icon">&#x1F634;</div></div>
+                    <div>
+                        <div class="card-title">Сон</div>
+                        <div class="card-desc">Качественный отдых и восстановление</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ 9. СИЛА GO MOBILE ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Сила<br>Go Mobile</h1>
+                <div class="subtitle anim d2">Преимущества и уникальность</div>
+            </div>
+            <div class="red-card anim d2" style="min-height:340px;">
+                <div class="rc-icon">&#x1F947;</div>
+                <div>
+                    <div class="rc-number">№1</div>
+                    <div class="rc-label">Первые на рынке &mdash;<br>на нас смотрят</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Лидер</div>
+                    <div class="pill-ghost pill">C-level</div>
+                    <div class="pill-ghost pill">Вектор</div>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Преимущества</div>
+                <div class="section-sub">Что делает нас<br>уникальными на рынке</div>
+            </div>
+            <div class="cards-grid">
+                <div class="card anim d3">
+                    <div class="card-meta"><div class="card-date">01</div><div class="card-icon">&#x1F947;</div></div>
+                    <div>
+                        <div class="card-title">Первые на рынке</div>
+                        <div class="card-desc">Мы задаём стандарты, нас копируют</div>
+                    </div>
+                </div>
+                <div class="card anim d4">
+                    <div class="card-meta"><div class="card-date">02</div><div class="card-icon">&#x1F4A1;</div></div>
+                    <div>
+                        <div class="card-title">Задаём вектор индустрии</div>
+                        <div class="card-desc">Направление развития всего рынка</div>
+                    </div>
+                </div>
+                <div class="card anim d5">
+                    <div class="card-meta"><div class="card-date">03</div><div class="card-icon">&#x1F441;</div></div>
+                    <div>
+                        <div class="card-title">На нас смотрят</div>
+                        <div class="card-desc">Рынок ориентируется на наши решения</div>
+                    </div>
+                </div>
+                <div class="card anim d6">
+                    <div class="card-meta"><div class="card-date">04</div><div class="card-icon">&#x1F680;</div></div>
+                    <div>
+                        <div class="card-title">Проактивный C-level</div>
+                        <div class="card-desc">Руководство инициирует стратегические шаги</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ 10. ТОЧКИ РОСТА ================ -->
+<div class="slide">
+    <div class="slide-container">
+        <div class="left-block">
+            <div class="left-top">
+                <h1 class="anim d1">Точки роста<br>для бизнеса</h1>
+                <div class="subtitle anim d2">Где я вижу возможности</div>
+            </div>
+            <div class="red-card anim d2" style="min-height:340px;">
+                <div class="rc-icon">&#x1F30D;</div>
+                <div>
+                    <div class="rc-number">Intl</div>
+                    <div class="rc-label">Экспансия<br>на международные рынки</div>
+                </div>
+                <div class="rc-pills">
+                    <div class="pill">Global</div>
+                    <div class="pill-ghost pill">Новые источники</div>
+                    <div class="pill-ghost pill">Бренд</div>
+                </div>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="section-header anim d2">
+                <div class="section-pill">Рост</div>
+                <div class="section-sub">Аналитика<br>по международным рынкам</div>
+            </div>
+            <div class="cards-grid" style="grid-template-columns: 1fr;">
+                <div class="card anim d3">
+                    <div class="card-meta"><div class="card-date">Ключевая точка роста</div><div class="card-icon">&#x2B50;</div></div>
+                    <div>
+                        <div class="card-title">Экспансия на международные рынки</div>
+                        <div class="card-desc">Новые источники дохода и усиление позиционирования бренда на глобальном уровне</div>
+                    </div>
+                </div>
+                <div class="qr-card anim d4">
+                    <div class="qr-frame">
+                        <img src="qr.png" alt="QR-код Go Mobile — Аналитика">
+                    </div>
+                    <div class="qr-label">Сканируйте для просмотра аналитики</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ 11. END ================ -->
 <div class="slide slide-end">
-    <div class="end-title anim d1">Q2 &#x2192;</div>
-    <div class="end-sub anim d2">Вопросы и обсуждение</div>
+    <div class="end-wrap">
+        <div class="end-card">
+            <div class="end-mark anim d1">Q2 &#x2192;</div>
+            <div class="end-sub anim d2">Вопросы и обсуждение</div>
+        </div>
+    </div>
 </div>
 
 <!-- NAV -->
 <div class="nav">
     <button class="nav-btn" onclick="go(-1)">&#x2190;</button>
     <div class="nav-dots" id="dots"></div>
-    <div class="nav-num" id="num">1 / 12</div>
+    <div class="nav-num" id="num">01 / 11</div>
     <button class="nav-btn" onclick="go(1)">&#x2192;</button>
 </div>
 
@@ -1015,6 +1255,8 @@
         d.onclick = () => goTo(i);
         dotsEl.appendChild(d);
     });
+
+    function pad(n) { return n < 10 ? '0' + n : n; }
 
     function goTo(i) {
         if (i < 0 || i >= total) return;
@@ -1034,7 +1276,7 @@
             });
         });
         document.querySelectorAll('.nav-dot').forEach((d, j) => d.classList.toggle('active', j === cur));
-        document.getElementById('num').textContent = (cur + 1) + ' / ' + total;
+        document.getElementById('num').textContent = pad(cur + 1) + ' / ' + pad(total);
         document.getElementById('progress').style.width = ((cur + 1) / total * 100) + '%';
     }
 
@@ -1054,7 +1296,6 @@
 
     goTo(0);
 
-    // Theme toggle
     function toggleTheme() {
         const html = document.documentElement;
         const isDark = html.getAttribute('data-theme') === 'dark';
@@ -1062,7 +1303,6 @@
         localStorage.setItem('theme', isDark ? 'light' : 'dark');
     }
 
-    // Restore saved theme
     const saved = localStorage.getItem('theme');
     if (saved === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
